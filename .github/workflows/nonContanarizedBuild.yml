@@ -1,0 +1,37 @@
+name: non-contanarized Build
+
+on: 
+ workflow_dispatch
+
+jobs:
+  Py_Build:
+   runs-on: ubuntu-20.04
+   steps:
+     - name: Checkout
+       uses: actions/checkout@v6.0.2
+     
+     - name: setup/install python dependiencies
+       uses: actions/setup-python@v6.2.0
+       with:
+        python-version: '3*'
+        run: python -m pip install            # installing dependencies
+     
+     - name: .py build                            
+       run: |
+        python -m py_compile main.py          # Byte-compiles .py → .pyc (optional)
+        echo "Python build successful"
+
+     - name: Run and Test 
+       run: python main.py
+     
+     - name: publish artifact
+       run: |
+        mkdir staging
+        cp main.py staging/
+        python -m py_compile main.py     # Include .pyc
+        cp __pycache__/main.cpython-*.pyc staging/  # Compiled bytecode
+       
+  
+  
+
+   
