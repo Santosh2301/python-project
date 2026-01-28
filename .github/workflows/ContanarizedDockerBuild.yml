@@ -13,7 +13,7 @@ jobs:
       uses: docker/login-action@v3
       with:
         username: ${{ vars.USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        password: ${{ secrets.DOCKERPASS }}
 
     - name: Docker Build
       run: docker build -t ${{ vars.USERNAME }}/git-action-images:pythonimage .
