@@ -1,0 +1,38 @@
+name: ContanarizedBuildACR
+
+on: workflow_dispatch
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  Docker_Build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4         
+
+    # Login to Azure using OIDC or a Service Principal
+    - name: Azure CLI login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ vars.AZURE_CLIENT_ID }}
+        tenant-id: ${{ vars.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Azure ACR login
+      run: az acr login --name registryforcimages   #  ACR name
+
+    - name: Docker Build 
+      run: |
+        docker build -t python-sum:pythonimage .    
+        
+    - name: Tag image for ACR
+      run: |
+        docker tag python-sum:pythonimage \
+          registryforcimages.azurecr.io/git-action-images:pythonimage
+          
+    - name: Push to Azure Container Registry
+      run: |
+        docker push registryforcimages.azurecr.io/git-action-images:pythonimage
