@@ -2,6 +2,9 @@ name: ContanarizedBuildACR
 
 on: workflow_dispatch
 
+permissions:                # OpenID Connect (OIDC) authentication. requireds read write permission:
+  id-token: write           # other wise gives error: Failed to fetch federated token from GitHub. Please make sure to give write permissions to id-token in the workflow
+  contents: read
 
 jobs:
   Docker_Build:
