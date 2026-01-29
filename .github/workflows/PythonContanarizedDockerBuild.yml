@@ -1,4 +1,4 @@
-name: ContanarizedDockerBuild
+name: Python Contanarized DockerBuild
 
 on: workflow_dispatch
 
@@ -13,10 +13,10 @@ jobs:
       uses: docker/login-action@v3
       with:
         username: ${{ vars.USERNAME }}
-        password: ${{ secrets.DOCKERPASS }}
+        password: ${{ secrets.PASSWORD }}
 
     - name: Docker Build
-      run: docker build -t ${{ vars.USERNAME }}/git-action-images:pythonimage .
+      run: docker build -t ${{ vars.USERNAME }}/git-action-images:pythonC1image .
 
     - name: Docker Push
-      run: docker push ${{ vars.USERNAME }}/git-action-images:pythonimage
+      run: docker push ${{ vars.USERNAME }}/git-action-images:pythonC1image
