@@ -2,9 +2,6 @@ name: ContanarizedBuildACR
 
 on: workflow_dispatch
 
-permissions:
-  id-token: write
-  contents: read
 
 jobs:
   Docker_Build:
