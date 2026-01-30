@@ -22,7 +22,7 @@ jobs:
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     - name: Azure ACR login
-      run: az acr login --name registryforcimages   #  ACR name
+      run: az acr login --name acrazuresantosh   #  ACR name
 
     - name: Docker Build 
       run: |
@@ -31,8 +31,8 @@ jobs:
     - name: Tag image for ACR
       run: |
         docker tag python-sum:pythonimage \
-          registryforcimages.azurecr.io/git-action-images:pythonimage
+          acrazuresantosh.azurecr.io/git-action-images:pythonimage
           
     - name: Push to Azure Container Registry
       run: |
-        docker push registryforcimages.azurecr.io/git-action-images:pythonimage     #  ACR login server ( private registry endpoint).
+        docker push acrazuresantosh.azurecr.io/git-action-images:pythonimage     #  ACR login server ( private registry endpoint).
